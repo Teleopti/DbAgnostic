@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using System.Data.SqlClient;
+using Npgsql;
 using NUnit.Framework;
 using SharpTestsEx;
 
