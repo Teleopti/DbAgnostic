@@ -117,4 +117,11 @@ public static class ConnectionStringMutationExtensions
             sourceConnectionString.UserName(),
             sourceConnectionString.Password()
         );
+
+    public static string RemoveCredentials(this string connectionString) =>
+        connectionString.SetCredentials(
+            false,
+            null,
+            null
+        );
 }

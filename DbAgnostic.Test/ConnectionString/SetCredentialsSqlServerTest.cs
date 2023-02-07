@@ -98,4 +98,40 @@ public class SetCredentialsSqlServerTest
         result.UserName().Should().Be("");
         result.Password().Should().Be("");
     }
+    
+    [Test]
+    public void ShouldRemoveCredentials()
+    {
+        var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", UserID = "u", Password = "p"}.ToString();
+
+        var result = connectionString.SetCredentials(false, null, null);
+
+        result.IntegratedSecurity().Should().Be.False();
+        result.UserName().Should().Be("");
+        result.Password().Should().Be("");
+    }
+
+    [Test]
+    public void ShouldRemoveCredentials2()
+    {
+        var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", UserID = "u", Password = "p"}.ToString();
+
+        var result = connectionString.RemoveCredentials();
+
+        result.IntegratedSecurity().Should().Be.False();
+        result.UserName().Should().Be("");
+        result.Password().Should().Be("");
+    }
+    
+    [Test]
+    public void ShouldRemoveCredentials3()
+    {
+        var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", IntegratedSecurity = true}.ToString();
+
+        var result = connectionString.RemoveCredentials();
+
+        result.IntegratedSecurity().Should().Be.False();
+        result.UserName().Should().Be("");
+        result.Password().Should().Be("");
+    }
 }
