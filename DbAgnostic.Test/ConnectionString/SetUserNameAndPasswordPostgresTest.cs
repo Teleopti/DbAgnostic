@@ -36,4 +36,16 @@ public class SetUserNameAndPasswordPostgresTest
 
 		result.Should().Not.Contain("Integrated Security");
 	}
+	
+	[Test]
+	public void ShouldRemoveUserNameAndPassword()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo", Username = "u", Password = "p"}.ToString();
+
+		var result = connectionString.SetUserNameAndPassword(null, null);
+
+		result.Should().Not.Contain("UserName");
+		result.Should().Not.Contain("Password");
+	}
+	
 }

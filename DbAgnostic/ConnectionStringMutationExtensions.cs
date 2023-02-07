@@ -70,7 +70,15 @@ public static class ConnectionStringMutationExtensions
         new ConnectionStringDbSelector(connectionString).PickFunc(
             () =>
             {
-                var x = new SqlConnectionStringBuilder(connectionString) {UserID = userName, Password = password};
+                var x = new SqlConnectionStringBuilder(connectionString);
+                if (userName == null)
+                    x.Remove("User ID");
+                else
+                    x.UserID = userName;
+                if (password == null)
+                    x.Remove("Password");
+                else
+                    x.Password = password;
                 x.Remove("Integrated security");
                 return x.ToString();
             },
@@ -102,4 +110,11 @@ public static class ConnectionStringMutationExtensions
                     return new NpgsqlConnectionStringBuilder(connectionString) {IntegratedSecurity = true, Username = null, Password = null}.ToString();
                 return SetUserNameAndPassword(connectionString, userName, password);
             });
+
+    public static string SetCredentials(this string connectionString, string sourceConnectionString) =>
+        connectionString.SetCredentials(
+            sourceConnectionString.IntegratedSecurity(),
+            sourceConnectionString.UserName(),
+            sourceConnectionString.Password()
+        );
 }
