@@ -7,7 +7,7 @@ public static class ConnectionStringMutationExtensions
 {
     public static string ChangeDatabase(this string connectionString, string newDatabase)
     {
-        return new ConnectionStringDbSelector(connectionString).PickFunc(
+        return connectionString.PickFunc(
             () =>
             {
                 var x = new SqlConnectionStringBuilder(connectionString);
@@ -25,14 +25,14 @@ public static class ConnectionStringMutationExtensions
 
     public static string PointToMasterDatabase(this string connectionString)
     {
-        return new ConnectionStringDbSelector(connectionString).PickFunc(
+        return connectionString.PickFunc(
             () => new SqlConnectionStringBuilder(connectionString) {InitialCatalog = "master"}.ToString(),
             () => new NpgsqlConnectionStringBuilder(connectionString) {Database = "postgres"}.ToString());
     }
 
     public static string ChangeServer(this string connectionString, string server)
     {
-        return new ConnectionStringDbSelector(connectionString).PickFunc(
+        return connectionString.PickFunc(
             () =>
             {
                 var x = new SqlConnectionStringBuilder(connectionString);
@@ -50,7 +50,7 @@ public static class ConnectionStringMutationExtensions
 
     public static string ChangeApplicationName(this string connectionString, string applicationName)
     {
-        return new ConnectionStringDbSelector(connectionString).PickFunc(
+        return connectionString.PickFunc(
             () =>
             {
                 var x = new SqlConnectionStringBuilder(connectionString);
@@ -67,7 +67,7 @@ public static class ConnectionStringMutationExtensions
         connectionString.ChangeApplicationName(null);
 
     public static string SetUserNameAndPassword(this string connectionString, string userName, string password) =>
-        new ConnectionStringDbSelector(connectionString).PickFunc(
+        connectionString.PickFunc(
             () =>
             {
                 var x = new SqlConnectionStringBuilder(connectionString);
@@ -91,7 +91,7 @@ public static class ConnectionStringMutationExtensions
         );
 
     public static string SetCredentials(this string connectionString, bool useIntegratedSecurity, string userName, string password) =>
-        new ConnectionStringDbSelector(connectionString).PickFunc(
+        connectionString.PickFunc(
             () =>
             {
                 if (useIntegratedSecurity)
