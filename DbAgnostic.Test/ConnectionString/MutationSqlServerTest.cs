@@ -45,4 +45,15 @@ public class MutationSqlServerTest
 
 		new SqlConnectionStringBuilder(result).ApplicationName.Should().Be("coolapp");
 	}
+	
+	[Test]
+	public void ShouldSetConnectionTimeout()
+	{
+		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", ApplicationName = "app"}.ToString();
+
+		var result = connectionString.SetConnectionTimeout(17);
+
+		new SqlConnectionStringBuilder(result).ConnectTimeout
+			.Should().Be.EqualTo(17);
+	}
 }

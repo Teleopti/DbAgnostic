@@ -124,4 +124,11 @@ public static class ConnectionStringMutationExtensions
             null,
             null
         );
+
+    public static string SetConnectionTimeout(this string connectionString, int seconds) =>
+        connectionString.PickFunc(
+            () => 
+                new SqlConnectionStringBuilder(connectionString) { ConnectTimeout = seconds }.ToString(), 
+            () => 
+                new NpgsqlConnectionStringBuilder(connectionString) { Timeout = seconds }.ToString());
 }

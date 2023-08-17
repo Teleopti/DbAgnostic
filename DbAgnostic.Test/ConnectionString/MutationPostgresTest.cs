@@ -45,4 +45,15 @@ public class MutationPostgresTest
 
 		new NpgsqlConnectionStringBuilder(result).ApplicationName.Should().Be("coolapp");
 	}
+
+	[Test]
+	public void ShouldSetConnectionTimeout()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo", ApplicationName = "app"}.ToString();
+
+		var result = connectionString.SetConnectionTimeout(17);
+
+		new NpgsqlConnectionStringBuilder(result).Timeout
+			.Should().Be.EqualTo(17);
+	}
 }
