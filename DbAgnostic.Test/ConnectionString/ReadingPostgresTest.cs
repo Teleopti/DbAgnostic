@@ -53,4 +53,12 @@ public class ReadingPostgresTest
 
 		connectionString.IntegratedSecurity().Should().Be(true);
 	}
+	
+	[Test]
+	public void ShouldParseConnectionTimeout()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder {Timeout = 42}.ToString();
+
+		connectionString.ConnectionTimeout().Should().Be(42);
+	}
 }

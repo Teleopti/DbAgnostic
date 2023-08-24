@@ -53,4 +53,12 @@ public class ReadingSqlServerTest
 
 		connectionString.IntegratedSecurity().Should().Be(true);
 	}
+    
+	[Test]
+	public void ShouldParseConnectionTimeout()
+	{
+		var connectionString = new SqlConnectionStringBuilder {ConnectTimeout = 47}.ToString();
+
+		connectionString.ConnectionTimeout().Should().Be(47);
+	}
 }

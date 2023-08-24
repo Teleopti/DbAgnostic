@@ -48,5 +48,12 @@ namespace DbAgnostic
 				() => new SqlConnectionStringBuilder(connectionString).IntegratedSecurity,
 				() => new NpgsqlConnectionStringBuilder(connectionString).IntegratedSecurity);
 		}
+
+		public static int ConnectionTimeout(this string connectionString)
+		{
+			return connectionString.PickFunc(
+				() => new SqlConnectionStringBuilder(connectionString).ConnectTimeout,
+				() => new NpgsqlConnectionStringBuilder(connectionString).Timeout);
+		}
 	}
 }
