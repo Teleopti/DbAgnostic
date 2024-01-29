@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>1.0.0.0</PackageVersion>
-    <Description>Methods for sql dialect selections in infrastructure layers.</Description>
+    <Description>Extensions for sql dialect selections in data access layers.</Description>
     <PackageProjectUrl>https://github.com/Teleopti/DbAgnostic</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>SqlServer;PostgreSql</PackageTags>
