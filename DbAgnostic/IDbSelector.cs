@@ -1,9 +1,8 @@
 using System;
 
-namespace DbAgnostic
+namespace DbAgnostic;
+
+public interface IDbSelector
 {
-	public interface IDbSelector
-	{
-		T PickFunc<T>(Func<T> sqlServer, Func<T> postgres);
-	}
+	T PickFunc<T>(Func<T> sqlServer, Func<T> postgres);
 }
