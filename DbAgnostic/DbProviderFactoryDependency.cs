@@ -20,6 +20,20 @@ internal static class DbProviderFactoryDependency
 
 	private static readonly Lazy<DbProviderFactory> _postgres = new(() => GetProviderFactory("Npgsql.NpgsqlFactory, Npgsql"));
 
+	public static DbConnectionStringBuilder SqlConnectionStringBuilder(string connectionString)
+	{
+		var x = SqlServer.CreateConnectionStringBuilder();
+		x.ConnectionString = connectionString;
+		return x;
+	}
+	
+	public static DbConnectionStringBuilder NpgsqlConnectionStringBuilder(string connectionString)
+	{
+		var x = Postgres.CreateConnectionStringBuilder();
+		x.ConnectionString = connectionString;
+		return x;
+	}
+
 	public static DbProviderFactory SqlServer => _sqlServer.Value;
 	public static DbProviderFactory Postgres => _postgres.Value;
 	
