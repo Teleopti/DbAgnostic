@@ -1,5 +1,4 @@
 using System;
-using Npgsql;
 
 namespace DbAgnostic;
 
@@ -25,8 +24,7 @@ internal class ConnectionStringDbSelector : IDbSelector
 	{
 		try
 		{
-			DbProviderFactoryDependency.SqlServer.CreateConnectionStringBuilder()
-				.ConnectionString = _connectionString;
+			DbProviderFactoryDependency.SqlConnectionStringBuilder(_connectionString);
 			return true;
 		}
 		catch (Exception)
@@ -39,7 +37,7 @@ internal class ConnectionStringDbSelector : IDbSelector
 	{
 		try
 		{
-			new NpgsqlConnectionStringBuilder(_connectionString);
+			DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(_connectionString);
 			return true;
 		}
 		catch (Exception)
@@ -47,5 +45,4 @@ internal class ConnectionStringDbSelector : IDbSelector
 			return false;
 		}
 	}
-
 }
