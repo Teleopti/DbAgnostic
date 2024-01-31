@@ -2,15 +2,8 @@ using System;
 
 namespace DbAgnostic;
 
-internal class ConnectionStringDbSelector : IDbSelector
+internal class ConnectionStringDbSelector(string connectionString) : IDbSelector
 {
-	private readonly string _connectionString;
-
-	public ConnectionStringDbSelector(string connectionString)
-	{
-		_connectionString = connectionString;
-	}
-
 	public T PickFunc<T>(Func<T> sqlServer, Func<T> postgres)
 	{
 		if (isSqlServer())
@@ -24,7 +17,7 @@ internal class ConnectionStringDbSelector : IDbSelector
 	{
 		try
 		{
-			DbProviderFactoryDependency.SqlConnectionStringBuilder(_connectionString);
+			DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString);
 			return true;
 		}
 		catch (Exception)
@@ -37,7 +30,7 @@ internal class ConnectionStringDbSelector : IDbSelector
 	{
 		try
 		{
-			DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(_connectionString);
+			DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 			return true;
 		}
 		catch (Exception)
