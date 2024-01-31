@@ -13,7 +13,15 @@ public class ReadingSqlServerTest
 
 		connectionString.DatabaseName().Should().Be("db");
 	}
+	
+	[Test]
+	public void ShouldParseDatabaseNameNull()
+	{
+		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo"}.ToString();
 
+		connectionString.DatabaseName().Should().Be(null);
+	}
+	
 	[Test]
 	public void ShouldParseServerName()
 	{
@@ -23,11 +31,27 @@ public class ReadingSqlServerTest
 	}
 
 	[Test]
+	public void ShouldParseServerNameNull()
+	{
+		var connectionString = new SqlConnectionStringBuilder {UserID = "user"}.ToString();
+
+		connectionString.ServerName().Should().Be(null);
+	}
+	
+	[Test]
 	public void ShouldParseApplicationName()
 	{
 		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", ApplicationName = "app"}.ToString();
 
 		connectionString.ApplicationName().Should().Be("app");
+	}
+
+	[Test]
+	public void ShouldParseApplicationNameNull()
+	{
+		var connectionString = new SqlConnectionStringBuilder {DataSource = "foo"}.ToString();
+
+		connectionString.ApplicationName().Should().Be(null);
 	}
 
 	[Test]
@@ -53,7 +77,7 @@ public class ReadingSqlServerTest
 
 		connectionString.IntegratedSecurity().Should().Be(true);
 	}
-    
+
 	[Test]
 	public void ShouldParseConnectionTimeout()
 	{

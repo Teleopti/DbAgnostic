@@ -15,6 +15,22 @@ public class ReadingPostgresTest
 	}
 
 	[Test]
+	public void ShouldParseDatabaseNameNull()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
+
+		connectionString.DatabaseName().Should().Be(null);
+	}
+
+	[Test]
+	public void ShouldParseDatabaseNameNull2()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Database = null}.ToString();
+
+		connectionString.DatabaseName().Should().Be(null);
+	}
+
+	[Test]
 	public void ShouldParseServerName()
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "server"}.ToString();
@@ -23,11 +39,27 @@ public class ReadingPostgresTest
 	}
 
 	[Test]
+	public void ShouldParseServerNameNull()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder {Host = null, Username = "user"}.ToString();
+
+		connectionString.ServerName().Should().Be(null);
+	}
+	
+	[Test]
 	public void ShouldParseApplicationName()
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", ApplicationName = "app"}.ToString();
 
 		connectionString.ApplicationName().Should().Be("app");
+	}
+
+	[Test]
+	public void ShouldParseApplicationNameNull()
+	{
+		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
+
+		connectionString.ApplicationName().Should().Be(null);
 	}
 
 	[Test]
@@ -53,7 +85,7 @@ public class ReadingPostgresTest
 
 		connectionString.IntegratedSecurity().Should().Be(true);
 	}
-	
+
 	[Test]
 	public void ShouldParseConnectionTimeout()
 	{

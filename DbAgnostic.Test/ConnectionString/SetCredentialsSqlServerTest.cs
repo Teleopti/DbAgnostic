@@ -93,10 +93,8 @@ public class SetCredentialsSqlServerTest
 
         result.ServerName().Should().Be("foo");
         result.IntegratedSecurity().Should().Be.True();
-        // these cant be null for some reason... slight incompat with postgres.
-        // probably need to be fixed some day, some how
-        result.UserName().Should().Be("");
-        result.Password().Should().Be("");
+        result.UserName().Should().Be(null);
+        result.Password().Should().Be(null);
     }
     
     [Test]
@@ -107,8 +105,8 @@ public class SetCredentialsSqlServerTest
         var result = connectionString.SetCredentials(false, null, null);
 
         result.IntegratedSecurity().Should().Be.False();
-        result.UserName().Should().Be("");
-        result.Password().Should().Be("");
+        result.UserName().Should().Be.Null();
+        result.Password().Should().Be.Null();
     }
 
     [Test]
@@ -119,8 +117,8 @@ public class SetCredentialsSqlServerTest
         var result = connectionString.RemoveCredentials();
 
         result.IntegratedSecurity().Should().Be.False();
-        result.UserName().Should().Be("");
-        result.Password().Should().Be("");
+        result.UserName().Should().Be.Null();
+        result.Password().Should().Be.Null();
     }
     
     [Test]
@@ -131,7 +129,7 @@ public class SetCredentialsSqlServerTest
         var result = connectionString.RemoveCredentials();
 
         result.IntegratedSecurity().Should().Be.False();
-        result.UserName().Should().Be("");
-        result.Password().Should().Be("");
+        result.UserName().Should().Be.Null();
+        result.Password().Should().Be.Null();
     }
 }

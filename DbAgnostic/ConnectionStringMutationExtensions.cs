@@ -76,7 +76,7 @@ public static class ConnectionStringMutationExtensions
 				var x = DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString);
 				x["User ID"] = userName;
 				x["Password"] = password;
-				x["Integrated security"] = null;
+				x["Integrated Security"] = null;
 				return x.ToString();
 			},
 			() =>
@@ -84,7 +84,7 @@ public static class ConnectionStringMutationExtensions
 				var x = DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 				x["Username"] = userName;
 				x["Password"] = password;
-				x["Integrated security"] = null;
+				x["Integrated Security"] = null;
 				return x.ToString();
 			}
 		);
@@ -98,7 +98,7 @@ public static class ConnectionStringMutationExtensions
 					var x = DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString);
 					x["User ID"] = null;
 					x["Password"] = null;
-					x["Integrated security"] = true;
+					x["Integrated Security"] = true;
 					return x.ToString();
 				}
 
@@ -111,7 +111,7 @@ public static class ConnectionStringMutationExtensions
 					var x = DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 					x["Username"] = null;
 					x["Password"] = null;
-					x["Integrated security"] = true;
+					x["Integrated Security"] = true;
 					return x.ToString();
 				}
 
