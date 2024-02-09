@@ -27,7 +27,8 @@ public static class ConnectionStringReadingExtensions
 				static bool ApplicationNameIsNotSet(string applicationName) =>
 					string.IsNullOrEmpty(applicationName) ||
 					applicationName == ".Net SqlClient Data Provider" ||
-					applicationName == "Core .Net SqlClient Data Provider";
+					applicationName == "Core .Net SqlClient Data Provider" ||
+					applicationName == "Core Microsoft SqlClient Data Provider";
 			},
 			() => DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString).StringValue("Application Name")
 		);

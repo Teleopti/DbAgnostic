@@ -14,7 +14,7 @@ public class CreateConnectionTest
 
 		var result = connectionString.CreateConnection();
 
-		result.Should().Be.OfType<SqlConnection>();
+		result.GetType().Name.Should().Be("SqlConnection");
 	}
 
 	[Test]

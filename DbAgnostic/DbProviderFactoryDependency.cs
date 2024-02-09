@@ -44,7 +44,7 @@ internal static class DbProviderFactoryDependency
 			.Where(x => x != null)
 			.Select(x => x.GetField("Instance")?.GetValue(null))
 			.OfType<DbProviderFactory>()
-			.SingleOrDefault();
+			.FirstOrDefault();
 		if (result == null)
 			throw new Exception($"DbProviderFactory {string.Join(" or ", types)} not found. Reference need to be added in client.");
 		return result;
