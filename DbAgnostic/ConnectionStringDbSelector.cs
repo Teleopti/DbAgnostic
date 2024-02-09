@@ -20,7 +20,7 @@ internal class ConnectionStringDbSelector(string connectionString) : IDbSelector
 			DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString);
 			return true;
 		}
-		catch (Exception)
+		catch (ArgumentException)
 		{
 			return false;
 		}
@@ -33,7 +33,7 @@ internal class ConnectionStringDbSelector(string connectionString) : IDbSelector
 			DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 			return true;
 		}
-		catch (Exception)
+		catch (ArgumentException)
 		{
 			return false;
 		}
