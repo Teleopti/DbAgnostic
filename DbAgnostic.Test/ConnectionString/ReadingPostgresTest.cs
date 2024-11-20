@@ -79,11 +79,13 @@ public class ReadingPostgresTest
 	}
 
 	[Test]
-	public void ShouldParseIntegratedSecurity()
+	public void ShouldNotSupportIntegratedSecurity()
 	{
-		var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", IntegratedSecurity = true}.ToString();
+		var connectionString = "Host=foo;Database=bar";
 
-		connectionString.IntegratedSecurity().Should().Be(true);
+		connectionString.ServerName().Should().Be("foo");
+		connectionString.DatabaseName().Should().Be("bar");
+		connectionString.IntegratedSecurity().Should().Be.False();
 	}
 
 	[Test]

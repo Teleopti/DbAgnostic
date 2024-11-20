@@ -48,8 +48,7 @@ public static class ConnectionStringReadingExtensions
 	public static bool IntegratedSecurity(this string connectionString) =>
 		connectionString.PickFunc(
 			() => (bool) DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString)["Integrated Security"],
-			() => (bool) DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString)["Integrated Security"]
-		);
+			() => false);
 
 	public static int ConnectionTimeout(this string connectionString) =>
 		connectionString.PickFunc(

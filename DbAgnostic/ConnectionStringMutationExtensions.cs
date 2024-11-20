@@ -84,7 +84,6 @@ public static class ConnectionStringMutationExtensions
 				var x = DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 				x["Username"] = userName;
 				x["Password"] = password;
-				x["Integrated Security"] = null;
 				return x.ToString();
 			}
 		);
@@ -111,7 +110,6 @@ public static class ConnectionStringMutationExtensions
 					var x = DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
 					x["Username"] = null;
 					x["Password"] = null;
-					x["Integrated Security"] = true;
 					return x.ToString();
 				}
 

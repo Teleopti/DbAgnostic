@@ -18,22 +18,15 @@ public class SetUserNameAndPasswordPostgresTest
 	}
 
 	[Test]
-	public void ShouldTurnOffIntegratedSecurity()
+	public void ShouldNotSetIntegratedSecurity()
 	{
-		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo", IntegratedSecurity = true}.ToString();
-
-		var result = new NpgsqlConnectionStringBuilder(connectionString.SetUserNameAndPassword("user", "pass"));
-
-		result.IntegratedSecurity.Should().Be.False();
-	}
-
-	[Test]
-	public void ShouldClearIntegratedSecurity()
-	{
-		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo", IntegratedSecurity = true}.ToString();
+		var connectionString = "Host=foo";
 
 		var result = connectionString.SetUserNameAndPassword("user", "pass");
 
+		result.IntegratedSecurity().Should().Be.False();
+		result.UserName().Should().Be("user");
+		result.Password().Should().Be("pass");
 		result.Should().Not.Contain("Integrated Security");
 	}
 	

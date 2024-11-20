@@ -18,33 +18,28 @@ public class SetCredentialsPostgresTest
     }
 
     [Test]
-    public void ShouldTurnOffIntegratedSecurity()
+    public void ShouldNotSetIntegratedSecurity()
     {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", IntegratedSecurity = true}.ToString();
-
-        var result = new NpgsqlConnectionStringBuilder(connectionString.SetCredentials(false, "user", "pass"));
-
-        result.IntegratedSecurity.Should().Be.False();
-    }
-
-    [Test]
-    public void ShouldClearIntegratedSecurity()
-    {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", IntegratedSecurity = true}.ToString();
+        var connectionString = "Host=foo";
 
         var result = connectionString.SetCredentials(false, "user", "pass");
 
+        result.ServerName().Should().Be("foo");
+        result.IntegratedSecurity().Should().Be.False();
         result.Should().Not.Contain("Integrated Security");
     }
 
     [Test]
-    public void ShouldSetIntegratedSecurity()
+    public void ShouldIgnoreIntegratedSecurity()
     {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
+        var connectionString = "Host=foo;Username=u";
 
-        var result = new NpgsqlConnectionStringBuilder(connectionString.SetCredentials(true, null, null));
+        var result = connectionString.SetCredentials(true, null, null);
 
-        result.IntegratedSecurity.Should().Be.True();
+        result.ServerName().Should().Be("foo");
+        result.UserName().Should().Be(null);
+        result.IntegratedSecurity().Should().Be.False();
+        result.Should().Not.Contain("Integrated Security");
     }
 
     [Test]
@@ -61,10 +56,10 @@ public class SetCredentialsPostgresTest
     [Test]
     public void ShouldCopyCredentials()
     {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
-        var connectionString2 = new NpgsqlConnectionStringBuilder {Host = "bar", Username = "u", Password = "p"}.ToString();
+        var target = new NpgsqlConnectionStringBuilder {Host = "foo"}.ToString();
+        var source = new NpgsqlConnectionStringBuilder {Host = "bar", Username = "u", Password = "p"}.ToString();
 
-        var result = connectionString.SetCredentials(connectionString2);
+        var result = target.SetCredentials(source);
 
         result.ServerName().Should().Be("foo");
         result.IntegratedSecurity().Should().Be.False();
@@ -75,13 +70,13 @@ public class SetCredentialsPostgresTest
     [Test]
     public void ShouldCopyCredentials2()
     {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Username = "u", Password = "p"}.ToString();
-        var connectionString2 = new NpgsqlConnectionStringBuilder {Host = "bar", IntegratedSecurity = true}.ToString();
+        var target = "Host=foo;Username=u;Password=p";
+        var source = "Host=foo;";
 
-        var result = connectionString.SetCredentials(connectionString2);
+        var result = target.SetCredentials(source);
 
         result.ServerName().Should().Be("foo");
-        result.IntegratedSecurity().Should().Be.True();
+        result.IntegratedSecurity().Should().Be.False();
         result.UserName().Should().Be(null);
         result.Password().Should().Be(null);
     }
@@ -113,7 +108,7 @@ public class SetCredentialsPostgresTest
     [Test]
     public void ShouldRemoveCredentials3()
     {
-        var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", IntegratedSecurity = true}.ToString();
+        var connectionString = "Host=foo;Integrated Security=true";
 
         var result = connectionString.RemoveCredentials();
 
