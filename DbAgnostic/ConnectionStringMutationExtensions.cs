@@ -87,6 +87,24 @@ public static class ConnectionStringMutationExtensions
 				return x.ToString();
 			}
 		);
+	
+	public static string SetIntegratedSecurity(this string connectionString) =>
+		connectionString.PickFunc(
+			() =>
+			{				
+				var x = DbProviderFactoryDependency.SqlConnectionStringBuilder(connectionString);
+				x["User ID"] = null;
+				x["Password"] = null;
+				x["Integrated Security"] = true;
+				return x.ToString();
+			},
+			() =>
+			{
+				var x = DbProviderFactoryDependency.NpgsqlConnectionStringBuilder(connectionString);
+				x["Username"] = null;
+				x["Password"] = null;
+				return x.ToString();
+			});
 
 	public static string SetCredentials(this string connectionString, bool useIntegratedSecurity, string userName, string password) =>
 		connectionString.PickFunc(
