@@ -106,7 +106,7 @@ public static class ConnectionStringMutationExtensions
 				return x.ToString();
 			});
 
-	public static string SetCredentials(this string connectionString, bool useIntegratedSecurity, string userName, string password) =>
+	private static string SetCredentials(this string connectionString, bool useIntegratedSecurity, string userName, string password) =>
 		connectionString.PickFunc(
 			() =>
 			{
@@ -133,13 +133,6 @@ public static class ConnectionStringMutationExtensions
 
 				return SetUserNameAndPassword(connectionString, userName, password);
 			});
-
-	public static string SetCredentials(this string connectionString, string sourceConnectionString) =>
-		connectionString.SetCredentials(
-			sourceConnectionString.IntegratedSecurity(),
-			sourceConnectionString.UserName(),
-			sourceConnectionString.Password()
-		);
 
 	public static string RemoveCredentials(this string connectionString) =>
 		connectionString.SetCredentials(
