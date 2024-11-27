@@ -11,7 +11,7 @@ public class SetUserNameAndPasswordPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo"}.ToString();
 
-		var result = new NpgsqlConnectionStringBuilder(connectionString.SetUserNameAndPassword("user", "pass"));
+		var result = new NpgsqlConnectionStringBuilder(connectionString.SetCredentials("user", "pass"));
 
 		result.Username.Should().Be.EqualTo("user");
 		result.Password.Should().Be.EqualTo("pass");
@@ -22,7 +22,7 @@ public class SetUserNameAndPasswordPostgresTest
 	{
 		var connectionString = "Host=foo";
 
-		var result = connectionString.SetUserNameAndPassword("user", "pass");
+		var result = connectionString.SetCredentials("user", "pass");
 
 		result.IntegratedSecurity().Should().Be.False();
 		result.UserName().Should().Be("user");
@@ -35,7 +35,7 @@ public class SetUserNameAndPasswordPostgresTest
 	{
 		var connectionString = new NpgsqlConnectionStringBuilder{Host = "foo", Username = "u", Password = "p"}.ToString();
 
-		var result = connectionString.SetUserNameAndPassword(null, null);
+		var result = connectionString.SetCredentials(null, null);
 
 		result.Should().Not.Contain("UserName");
 		result.Should().Not.Contain("Password");

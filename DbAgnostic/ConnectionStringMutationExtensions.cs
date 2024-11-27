@@ -69,7 +69,7 @@ public static class ConnectionStringMutationExtensions
 	public static string RemoveApplicationName(this string connectionString) =>
 		connectionString.ChangeApplicationName(null);
 
-	public static string SetUserNameAndPassword(this string connectionString, string userName, string password) =>
+	public static string SetCredentials(this string connectionString, string userName, string password) =>
 		connectionString.PickFunc(
 			() =>
 			{
@@ -119,7 +119,7 @@ public static class ConnectionStringMutationExtensions
 					return x.ToString();
 				}
 
-				return SetUserNameAndPassword(connectionString, userName, password);
+				return SetCredentials(connectionString, userName, password);
 			},
 			() =>
 			{
@@ -131,7 +131,7 @@ public static class ConnectionStringMutationExtensions
 					return x.ToString();
 				}
 
-				return SetUserNameAndPassword(connectionString, userName, password);
+				return SetCredentials(connectionString, userName, password);
 			});
 
 	public static string RemoveCredentials(this string connectionString) =>

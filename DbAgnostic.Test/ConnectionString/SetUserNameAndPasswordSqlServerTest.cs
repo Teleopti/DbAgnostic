@@ -11,7 +11,7 @@ public class SetUserNameAndPasswordSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder{DataSource = "foo"}.ToString();
 
-		var result = new SqlConnectionStringBuilder(connectionString.SetUserNameAndPassword("user", "pass"));
+		var result = new SqlConnectionStringBuilder(connectionString.SetCredentials("user", "pass"));
 
 		result.UserID.Should().Be.EqualTo("user");
 		result.Password.Should().Be.EqualTo("pass");
@@ -22,7 +22,7 @@ public class SetUserNameAndPasswordSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder{DataSource = "foo", IntegratedSecurity = true}.ToString();
 
-		var result = new SqlConnectionStringBuilder(connectionString.SetUserNameAndPassword("user", "pass"));
+		var result = new SqlConnectionStringBuilder(connectionString.SetCredentials("user", "pass"));
 
 		result.IntegratedSecurity.Should().Be.False();
 	}
@@ -32,7 +32,7 @@ public class SetUserNameAndPasswordSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder{DataSource = "foo", IntegratedSecurity = true}.ToString();
 
-		var result = connectionString.SetUserNameAndPassword("user", "pass");
+		var result = connectionString.SetCredentials("user", "pass");
 
 		result.Should().Not.Contain("Integrated Security");
 	}
@@ -42,7 +42,7 @@ public class SetUserNameAndPasswordSqlServerTest
 	{
 		var connectionString = new SqlConnectionStringBuilder{DataSource = "foo", UserID = "u", Password = "p"}.ToString();
 
-		var result = connectionString.SetUserNameAndPassword(null, null);
+		var result = connectionString.SetCredentials(null, null);
 
 		result.Should().Not.Contain("User ID");
 		result.Should().Not.Contain("Password");
