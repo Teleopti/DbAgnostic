@@ -42,7 +42,7 @@ public class SetCredentialsPostgresTest
     }
     
     [Test]
-    public void ShouldRemoveCredentials2()
+    public void ShouldRemoveCredentials()
     {
         var connectionString = new NpgsqlConnectionStringBuilder {Host = "foo", Username = "u", Password = "p"}.ToString();
 
@@ -54,7 +54,7 @@ public class SetCredentialsPostgresTest
     }
     
     [Test]
-    public void ShouldRemoveCredentials3()
+    public void ShouldRemoveCredentials2()
     {
         var connectionString = "Host=foo;Integrated Security=true";
 

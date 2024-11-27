@@ -49,7 +49,7 @@ public class SetCredentialsSqlServerTest
     }
     
     [Test]
-    public void ShouldRemoveCredentials2()
+    public void ShouldRemoveCredentials()
     {
         var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", UserID = "u", Password = "p"}.ToString();
 
@@ -61,7 +61,7 @@ public class SetCredentialsSqlServerTest
     }
     
     [Test]
-    public void ShouldRemoveCredentials3()
+    public void ShouldRemoveCredentials2()
     {
         var connectionString = new SqlConnectionStringBuilder {DataSource = "foo", IntegratedSecurity = true}.ToString();
 
