@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/files/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="DbAgnostic.Test/DbAgnostic.Test.csproj" />
+  <Project Path="DbAgnostic/DbAgnostic.csproj" />
+</Solution>
